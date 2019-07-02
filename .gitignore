@@ -13,3 +13,6 @@ buildNumber.properties
 
 # Ignore settings folder
 .settings/
+
+# Ignore project file
+.project
