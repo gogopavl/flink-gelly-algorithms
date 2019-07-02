@@ -39,6 +39,6 @@ public class TriangleCounting {
 		System.out.println("Total runtime: " + totalSeconds +" seconds");
 
 		// execute program
-		// env.execute("Flink Pagerank");
+		// env.execute("Flink Triangle Counting");
 	}
 }
