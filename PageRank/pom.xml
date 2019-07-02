@@ -21,11 +21,11 @@ under the License.
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.pgogousis</groupId>
-	<artifactId>SSSPath</artifactId>
+	<artifactId>PageRank</artifactId>
 	<version>1.0</version>
 	<packaging>jar</packaging>
 
-	<name>SSSPath Job</name>
+	<name>PageRank Job</name>
 	<url>http://localhost:8081/#/overview</url>
 
 	<properties>
@@ -152,7 +152,7 @@ under the License.
 							</filters>
 							<transformers>
 								<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-									<mainClass>flink.SSSPath</mainClass>
+									<mainClass>flink.PR</mainClass>
 								</transformer>
 							</transformers>
 						</configuration>

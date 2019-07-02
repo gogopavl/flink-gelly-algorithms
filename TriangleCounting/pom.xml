@@ -25,8 +25,8 @@ under the License.
 	<version>1.0</version>
 	<packaging>jar</packaging>
 
-	<name>Flink Quickstart Job</name>
-	<url>http://www.myorganization.org</url>
+	<name>TriangleCounting Job</name>
+	<url>http://localhost:8081/#/overview</url>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
