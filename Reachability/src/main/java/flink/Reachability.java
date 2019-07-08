@@ -23,7 +23,7 @@ public class Reachability {
 	static DataSet<Edge<Long, NullValue>> nthNeighborhoodEdgeList;
 
 	public static boolean isReachable(Long sourceVertex, Long targetVertex, int maxDepth) throws Exception {
-		System.out.println("Is reachable with s: "+ sourceVertex + ", t: "+  targetVertex + ", depth: "+ maxDepth);
+
 		// Filter graph on edges to restrict neighborhoods
 		Graph<Long, NullValue, NullValue> subGraph = graph.filterOnEdges(
 			new FilterFunction<Edge<Long, NullValue>>() {
@@ -33,21 +33,21 @@ public class Reachability {
 				}
 			}
 		);
-
 		List<Edge<Long, NullValue>> edgeList = subGraph.getEdges().collect();
-		System.out.println("Edges: \n" + edgeList);
 
 		// Construct wanted edge to find through "contains"
 		Edge<Long, NullValue> wantedEdge = new Edge<>(sourceVertex, targetVertex, new NullValue());
 
 		if (edgeList.contains(wantedEdge)) {
-			System.out.println("Is reachable!");
 			return true;
 		}
 		else {
 			if (maxDepth > 1) {
 				for (Edge<Long, NullValue> edge : edgeList) {
-					isReachable(edge.getTarget(), targetVertex,  maxDepth-1);
+					// If child method has found the target vertex return true
+					if (isReachable(edge.getTarget(), targetVertex,  maxDepth-1)) {
+						return true;
+					}
 				}
 			}
 		}
@@ -71,7 +71,7 @@ public class Reachability {
 		graph = Graph.fromCsvReader(edgeListFilePath, env).keyType(Long.class);
 
 		Long source = new Long(1004); // Source vertex
-		Long target = new Long(3655); // Target vertex
+		Long target = new Long(3658); // Target vertex
 		int maxDepth = 2; // Maximum search depth
 
 		System.out.println("vertex "+ target +" is reachable from vertex "+ source +" = "+ isReachable(source, target, maxDepth));
