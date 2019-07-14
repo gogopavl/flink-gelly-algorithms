@@ -13,6 +13,16 @@ Information about setting up Flink can be found in [Flink's Official Documentati
 2. Run `mvn clean package` in order to build the project
 3. The JAR is located within the `target` folder
 
+## Configuring the cluster
+
+To configure the system edit the `conf/flink-conf.yaml` file
+
+- `jobmanager.heap.size: Nm` (the heap size for the JobManager JVM - e.g. 4096m)
+
+- `taskmanager.heap.size: Nm` (the heap size for the TaskManager JVM - e.g. 4096m)
+
+- `taskmanager.numberOfTaskSlots: N` (the number of parallel operator or user function instances that a single TaskManager can run (DEFAULT: 1). If this value is larger than 1, a single TaskManager takes multiple instances of a function or operator. That way, the TaskManager can utilize multiple CPU cores, but at the same time, the  available memory is divided between the different operator or function instances. This value is typically proportional to the number of physical CPU cores that the TaskManager’s machine has - e.g. equal to the number of cores, or half the number of cores)
+
 ## Starting/Monitoring/Stopping the cluster
 
 - To start the (local) Flink cluster run:
