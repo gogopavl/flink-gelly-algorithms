@@ -63,16 +63,14 @@ public class Reachability {
 		env.getConfig().setGlobalJobParameters(params); // Make params available to the web ui
 		
 		String edgeListFilePath = params.get("links", "Error");
+		long source = Long.parseLong(params.get("source", "Error"));
+		long target = Long.parseLong(params.get("target", "Error"));
+		int maxDepth = Integer.parseInt(params.get("depth", "Error"));
 
 		long toc = System.nanoTime();
 		
-
 		// Graph<Long, NullValue, NullValue> graph = Graph.fromCsvReader(edgeListFilePath, env).keyType(Long.class);
 		graph = Graph.fromCsvReader(edgeListFilePath, env).keyType(Long.class);
-
-		Long source = new Long(1004); // Source vertex
-		Long target = new Long(3658); // Target vertex
-		int maxDepth = 2; // Maximum search depth
 
 		System.out.println("vertex "+ target +" is reachable from vertex "+ source +" = "+ isReachable(source, target, maxDepth));
 
