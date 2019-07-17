@@ -39,7 +39,7 @@ public class ConnComponents {
 		ConnectedComponents<Long, Long, NullValue> connectedComponents = new ConnectedComponents<>(20);
 		DataSet<Vertex<Long, Long>> result = connectedComponents.run(annotatedGraph);
 
-		result.print();
+		result.collect();
 
 		long tic = System.nanoTime();
 

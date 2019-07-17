@@ -32,7 +32,7 @@ public class PR {
 		PageRank<Long, NullValue, NullValue> pageRank = new PageRank<>(0.85, 20, 0.0001);
 		DataSet<PageRank.Result<Long>> result = pageRank.runInternal(graph);
 
-		result.print();
+		result.collect();
 
 		long tic = System.nanoTime();
 

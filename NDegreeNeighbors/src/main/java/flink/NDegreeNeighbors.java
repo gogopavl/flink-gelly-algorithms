@@ -12,15 +12,17 @@ import org.apache.flink.graph.library.SingleSourceShortestPaths;
 import org.apache.flink.types.NullValue;
 import org.apache.flink.api.*;
 import org.apache.flink.graph.*;
+import java.util.*;
 import java.util.List;
 
 /**
- * Class implementing the finding of the nth degree neighbors of a given vertex on a graph
+ * Class finding the nth degree neighbors of a given vertex on a graph
  */
 public class NDegreeNeighbors {
 
 	static Graph<Long, NullValue, NullValue> graph;
 	static DataSet<Edge<Long, NullValue>> nthNeighborhoodEdgeList;
+	static HashSet <Long> neighborhoodIds = new HashSet <Long>();
 
 	public static void nthNeighbors(Long sourceVertex, int degree) throws Exception {
 		
@@ -39,9 +41,9 @@ public class NDegreeNeighbors {
 		if (degree == 1) {
 			// Print target nodes
 			for (Edge<Long, NullValue> edge : edgeList) {
-				System.out.print(edge.getTarget() +" ");
+				// Add to data structure
+				neighborhoodIds.add(edge.getTarget());
 			}
-			System.out.print("\n");
 			return;
 		}
 		else {
@@ -62,15 +64,12 @@ public class NDegreeNeighbors {
 		env.getConfig().setGlobalJobParameters(params); // Make params available to the web ui
 		
 		String edgeListFilePath = params.get("links", "Error");
+		long source = Long.parseLong(params.get("source", "Error"));
+		int degree = Integer.parseInt(params.get("degree", "Error"));
 
 		long toc = System.nanoTime();
 		
-
-		// Graph<Long, NullValue, NullValue> graph = Graph.fromCsvReader(edgeListFilePath, env).keyType(Long.class);
 		graph = Graph.fromCsvReader(edgeListFilePath, env).keyType(Long.class);
-
-		Long source = new Long(1004); // Source vertex
-		int degree = 3; // Neighborhood degree
 
 		nthNeighbors(source, degree);
 

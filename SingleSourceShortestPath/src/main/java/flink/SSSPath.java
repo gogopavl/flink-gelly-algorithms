@@ -24,6 +24,9 @@ public class SSSPath {
 		env.getConfig().setGlobalJobParameters(params); // Make params available to the web ui
 		
 		String edgeListFilePath = params.get("links", "Error");
+		long source = Long.parseLong(params.get("source", "Error"));
+		long target = Long.parseLong(params.get("target", "Error"));
+		int iters = 20; // Maximum number of iterations
 
 		long toc = System.nanoTime();
 		
@@ -37,16 +40,12 @@ public class SSSPath {
 			}
 		});
 
-		long source = 1; // Source vertex
-		long destination = 10001; // Path destination
-		int iters = 20; // Maximum number of iterations
-
 		SingleSourceShortestPaths<Long, NullValue> singleSourceShortestPaths = new SingleSourceShortestPaths<>(source,iters);
 		DataSet<Vertex<Long, Double>> result = singleSourceShortestPaths.run(weightedGraph);
 
 		System.out.println("Vertex number of shortest paths: " + result.count());
 
-		result.filter(vertex -> vertex.getId().equals(destination)).print();
+		result.filter(vertex -> vertex.getId().equals(target)).print();
 
 		long tic = System.nanoTime();
 
